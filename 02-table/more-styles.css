@@ -14,23 +14,15 @@ td, th {
   padding: 10px 20px;
 }
 
-th {
-  background-color: rgb(235,235,235);
+.column-background {
+  background-color: #97db9a;
 }
 
-td {
-  text-align: center;
+.column-fixed-width {
+  width: 40px;
 }
 
-tr:nth-child(even) td {
-  background-color: rgb(250,250,250);
+.column-background-border {
+  background-color: #dcc48e;
+  border: 4px solid #c1437a;
 }
-
-tr:nth-child(odd) td {
-  background-color: rgb(245,245,245);
-}
-
-caption {
-  padding: 10px;
-}
-
