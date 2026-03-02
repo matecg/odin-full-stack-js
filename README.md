@@ -119,3 +119,63 @@ article {
   max-inline-size: 66ch;
 }
 ```
+
+### CSS Selectors
+
+Some of the CSS selectors are easy to forget, so here's a summary, to select siblings and child elements there are the following selectors:
+
+- `<space>`: the general child combinator;
+- `>`: the first children generation only combinator;
+- `+`: the adjacent sibling only combinator;
+- `~`: the general sibling combinator;
+
+**Pseudo-classes** in CSS target document pieces that are in a **certain state**, like being hovered, or they are the first child, and so on. They are accessed by a single colon `:`. Complete reference can be found on [this link](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Pseudo-classes).
+
+**Pseudo-elements** will behave as if they were **entire HTML tags** displayed on the document, and nowadays they are referenced by double colon `::`. One of the most famous example are `::before` and `::after` to add content before or after an HTML element. Complete reference can be found on [this link](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Pseudo-elements).
+
+Finally, **Attribute selectors** will target HTML attributes that match a certain criteria, they can be accessed by standard brackets `[<attribute_name>]`. On top of that there are some specific usages that combine regex on the selector to achieve some powerful outcomes. The complete reference can be found on [this link](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Attribute_selectors). As a quick example of attribute selectors we have:
+
+- `[attribute^="value"]` - `^=` Will match strings from the start.
+- `[attribute$="value"]` - `$=` Will match strings from the end.
+- `[attribute*="value"]` - `*=` The wildcard selector will match anywhere inside the string.
+
+Following there is an example on all of them:
+
+```CSS
+/* Pseudo-class */
+article p:first-child {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+ul:nth-child(5) {
+    /* Selects the 5th child of the ul tag */
+}
+
+/* Pseudo-element */
+article p::first-line {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+/* Attribute selectors */
+[class^='aus'] {
+  /* This will target any class that begins with 'aus': */
+}
+
+[src$='.jpg'] {
+  /* This will target any src attribute that ends in '.jpg': */
+}
+
+[for*='ill'] {
+  /* This will target any for attribute that has 'ill' anywhere inside it: */
+}
+
+a[rel~="tag"] {
+    /* This will target any anchor tag with rel attribute whitespace-separated that contains 'tag' in it */
+}
+
+a[lang|="en"] {
+    /* This will target any anchor tag with lang attribute hyphen-separated that contains the letters 'en' */
+}
+```
