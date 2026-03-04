@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Form</title>
+  <style>
+    :root {
+      --primary-clr: steelblue;
+      --secondary-clr: rgb(114, 179, 233);
+    }
+
+    body {
+      text-align: center;
+    }
+
+    form {
+      display: inline-block;
+      padding: 1em;
+      border: 2px solid var(--primary-clr);
+      border-radius: 1em;
+    }
+
+    div+div {
+      margin-top: 1em;
+    }
+
+    label {
+      display: inline-block;
+      min-width: 90px;
+      text-align: right;
+      color: var(--primary-clr);
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      font: 1em sans-serif;
+      width: 300px;
+      box-sizing: border-box;
+      border: 1px solid var(--primary-clr);
+      border-radius: 0.5em;
+      padding: 0.5em;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline-style: solid;
+      outline-color: black;
+    }
+
+    textarea {
+      vertical-align: top;
+      height: 5em;
+    }
+
+    button {
+      padding: 0.75em 1.5em;
+      border-radius: 0.5em;
+      border: none;
+      background-color: var(--secondary-clr);
+    }
+
+    button:hover {
+      cursor: pointer;
+      background-color: var(--primary-clr);
+      box-shadow: 0 2px 5px var(--primary-clr);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Message Form</h1>
+
+  <form action="" method="post">
+    <div>
+      <label for="user-name">Name:</label>
+      <input type="text" id="user-name" name="user-name" placeholder="Bob" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="bob123@example.com" required>
+    </div>
+    <div>
+      <label for="message">Message:</label>
+      <textarea name="message" id="message" cols="45" rows="10" required></textarea>
+    </div>
+    <div class="btn-container">
+      <button type="submit">Send Message</button>
+    </div>
+  </form>
+  <p><a href="./index.html">Back</a></p>
+</body>
+
+</html>
