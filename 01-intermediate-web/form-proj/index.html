@@ -28,28 +28,34 @@
         <div class="form-content">
           <h2>Let's do this!</h2>
           <div>
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" placeholder="John">
+            <div>
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first-name" placeholder="John">
+            </div>
+            <div>
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last-name" placeholder="Doe">
+            </div>
           </div>
           <div>
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" placeholder="Doe">
+            <div>
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" placeholder="johndoe@example.com" required aria-required="true">
+            </div>
+            <div>
+              <label for="phone">Phone Number</label>
+              <input type="tel" name="phone" id="phone">
+            </div>
           </div>
           <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="johndoe@example.com">
-          </div>
-          <div>
-            <label for="phone">Phone Number</label>
-            <input type="tel" name="phone" id="phone">
-          </div>
-          <div>
-            <label for="pass">Password</label>
-            <input type="password" name="pass" id="pass">
-          </div>
-          <div>
-            <label for="confirm-pass">Confirm Password</label>
-            <input type="password" name="confirm-pass" id="confirm-pass">
+            <div>
+              <label for="pass">Password</label>
+              <input type="password" name="pass" id="pass" required aria-required="true">
+            </div>
+            <div>
+              <label for="confirm-pass">Confirm Password</label>
+              <input type="password" name="confirm-pass" id="confirm-pass" required aria-required="true">
+            </div>
           </div>
         </div>
         <div class="form-footer">
