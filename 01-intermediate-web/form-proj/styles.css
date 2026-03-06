@@ -6,9 +6,14 @@
     font-weight: normal;
 }
 
+:root{
+    --accent-color: rgb(188, 4, 41);
+}
+
 body {
     height: 100vh;
     display: flex;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
@@ -20,10 +25,11 @@ h1 span {
     font-size: 4rem;
 }
 
-.hero-container {
+.left-section {
     background: url(./assets/imgs/background.png);
-    flex-basis: 35%;
+    flex-basis: 40%;
     background-size: cover;
+    flex-shrink: 0;
 }
 
 .hero {
@@ -35,9 +41,44 @@ h1 span {
     justify-content: center;
     gap: 10px;
     padding: 10px;
-    margin-top: 150px;
+    margin-top: 40%;
 }
 
 .hero img {
     width: 60px;
+}
+
+.right-section {
+    background-color: #f1f2f2;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+}
+
+.info,
+form > div {
+    padding: 0 30px;
+}
+
+.info {
+    margin-bottom: 50px;
+    padding-right: 25%;
+}
+
+.info span {
+    color: var(--accent-color);
+}
+
+.info p {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.info :nth-child(2) {
+    margin-bottom: 20px;
+}
+
+.form-content {
+    background-color: #fff;
 }
