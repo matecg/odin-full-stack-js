@@ -1,0 +1,43 @@
+@font-face {
+    font-family: "balgruf";
+    src: 
+        url("./assets/fonts/balgruf-webfont.woff2") format("woff2"),
+        url("./assets/fonts/balgruf-webfont.woff") format("woff");
+    font-weight: normal;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: 0.35rem;
+}
+
+h1 span {
+    font-size: 4rem;
+}
+
+.hero-container {
+    background: url(./assets/imgs/background.png);
+    flex-basis: 35%;
+    background-size: cover;
+}
+
+.hero {
+    background-color: rgba(109, 2, 23, 0.5);
+    color: white;
+    font-family: "balgruf", "Helvetica", serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    margin-top: 150px;
+}
+
+.hero img {
+    width: 60px;
+}
