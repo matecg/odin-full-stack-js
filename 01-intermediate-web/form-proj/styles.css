@@ -8,6 +8,7 @@
 
 :root{
     --accent-color: rgb(188, 4, 41);
+    --light-color: #f1f2f2;
 }
 
 body {
@@ -19,10 +20,15 @@ body {
 h1 {
     font-size: 2.8rem;
     letter-spacing: 0.35rem;
+    text-transform: uppercase;
 }
 
-h1 span {
+h1::first-letter {
     font-size: 4rem;
+}
+
+h2 {
+    font-size: 1.2rem;
 }
 
 .left-section {
@@ -49,7 +55,7 @@ h1 span {
 }
 
 .right-section {
-    background-color: #f1f2f2;
+    background-color: var(--light-color);
     display: flex;
     flex-direction: column; 
     justify-content: center;
@@ -81,4 +87,33 @@ form > div {
 
 .form-content {
     background-color: #fff;
+    box-shadow: 0px 2px 5px #CCC;
+}
+
+button[type="submit"] {
+    padding: 8px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    background-color: var(--accent-color);
+    color: var(--light-color);
+    margin-bottom: 22px;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px #CCC;
+}
+
+button[type="submit"]:hover {
+    box-shadow: 0px 2px 5px #AAA;
+    color: white;
+}
+
+.form-footer {
+    margin-top: 20px;
+    font-size: 0.8rem;
+}
+
+.form-footer a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: 600;
 }
