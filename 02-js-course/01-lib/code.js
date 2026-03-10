@@ -51,7 +51,7 @@ function createBookCard(data) {
     const titlePara = document.createElement("p");
     titlePara.textContent = title;
     const infoPara = document.createElement("p");
-    infoPara.textContent = `${author} - ${numOfPages} pages${read ? " - Done ✔️;" : ";"}`;
+    infoPara.textContent = `Written by ${author} - ${numOfPages} pages${read ? " - Done ✔️;" : ";"}`;
     const textDiv = document.createElement("div");
     textDiv.appendChild(titlePara);
     textDiv.appendChild(infoPara);
