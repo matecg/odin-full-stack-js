@@ -50,24 +50,31 @@ function createBookCard(data) {
     bookCard.classList.add("book-card");
     const titlePara = document.createElement("p");
     titlePara.textContent = title;
-
     const infoPara = document.createElement("p");
-    infoPara.textContent = `${author} - ${numOfPages} pages${read ? " - ✅ Done;" : ";"}`;
+    infoPara.textContent = `${author} - ${numOfPages} pages${read ? " - Done ✔️;" : ";"}`;
+    const textDiv = document.createElement("div");
+    textDiv.appendChild(titlePara);
+    textDiv.appendChild(infoPara);
 
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "🗑️";
     removeBtn.setAttribute("data-book-id", id);
     removeBtn.addEventListener("click", onRemoveBook);
+    removeBtn.classList.add("outline-button");
 
     const readBtn = document.createElement("button");
     readBtn.textContent = "Mark read";
     readBtn.setAttribute("data-book-id", id);
     readBtn.addEventListener("click", onReadBook);
+    readBtn.classList.add("outline-button");
 
-    bookCard.appendChild(titlePara);
-    bookCard.appendChild(infoPara);
-    bookCard.appendChild(removeBtn);
-    bookCard.appendChild(readBtn);
+    const buttonsDiv = document.createElement("div");
+    buttonsDiv.appendChild(readBtn);
+    buttonsDiv.appendChild(removeBtn);
+    buttonsDiv.classList.add("card-buttons");
+
+    bookCard.appendChild(textDiv);
+    bookCard.appendChild(buttonsDiv);
     return bookCard;
 }
 
