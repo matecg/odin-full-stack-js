@@ -18,6 +18,13 @@ function addBookToLibrary(title, author, numOfPages, read = false) {
     myLibrary.push(newBook);
 }
 
+/* Removes a book based on its id and returns the removed item */
+function removeBookFromLibrary(id) {
+    const idx = myLibrary.findIndex((book) => book.id === id);
+    if (idx === -1) return;
+    return myLibrary.splice(idx, 1);
+}
+
 function displayBooks() {
     const container = document.querySelector(".books-container");
     // Wipe all children is sub-optimal, better would be a selective display
@@ -29,9 +36,14 @@ function displayBooks() {
         titlePara.textContent = myLibrary[i].title;
         const infoPara = document.createElement("p");
         infoPara.textContent = `${myLibrary[i].author} - ${myLibrary[i].numOfPages} pages${myLibrary[i].read ? " - ✅ Done;" : ";"}`;
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "🗑️";
+        removeBtn.setAttribute("data-book-id", myLibrary[i].id);
+        removeBtn.addEventListener("click", onRemoveBook);
 
         bookCard.appendChild(titlePara);
         bookCard.appendChild(infoPara);
+        bookCard.appendChild(removeBtn);
         container.appendChild(bookCard);
     }
 }
@@ -44,6 +56,12 @@ function onSubmitNewBook(e) {
     const read = !!data.get("read");
     e.target.reset();
     addBookToLibrary(title, author, numOfPages, read);
+    displayBooks();
+}
+
+function onRemoveBook(e) {
+    const {bookId} = e.target.dataset
+    removeBookFromLibrary(bookId);
     displayBooks();
 }
 
