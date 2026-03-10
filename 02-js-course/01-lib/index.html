@@ -12,6 +12,30 @@
 <body>
   <h1>TOP Library</h1>
   <h2>Your books</h2>
+  <button commandfor="new-dialog" command="show-modal">Add</button>
+  <dialog closedby="any" id="new-dialog">
+    <button commandfor="new-dialog" command="close">Close</button>
+    <form action="#" method="dialog" class="new-form">
+      <h3>Add a new book</h3>
+      <div>
+        <label for="title">Title (*):</label>
+        <input type="text" id="title" name="title" required aria-required="true">
+      </div>
+      <div>
+        <label for="author">Author (*):</label>
+        <input type="text" id="author" name="author" required aria-required="true">
+      </div>
+      <div>
+        <label for="pages">Number of pages (*):</label>
+        <input type="number" name="pages" id="pages" min="0" required aria-required="true">
+      </div>
+      <div>
+        <label for="read">Already read?</label>
+        <input type="checkbox" name="read" id="read">
+      </div>
+      <button type="submit">Add</button>
+    </form>
+  </dialog>
   <div class="books-container">
 
   </div>
