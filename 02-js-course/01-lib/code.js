@@ -47,15 +47,18 @@ function displayBooks() {
 function createBookCard(data) {
     const {id, title, author, numOfPages, read} = data;
     const bookCard = document.createElement("div");
-
+    bookCard.classList.add("book-card");
     const titlePara = document.createElement("p");
     titlePara.textContent = title;
+
     const infoPara = document.createElement("p");
     infoPara.textContent = `${author} - ${numOfPages} pages${read ? " - ✅ Done;" : ";"}`;
+
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "🗑️";
     removeBtn.setAttribute("data-book-id", id);
     removeBtn.addEventListener("click", onRemoveBook);
+
     const readBtn = document.createElement("button");
     readBtn.textContent = "Mark read";
     readBtn.setAttribute("data-book-id", id);

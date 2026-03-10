@@ -11,8 +11,10 @@
 
 <body>
   <h1>TOP Library</h1>
-  <h2>Your books</h2>
-  <button commandfor="new-dialog" command="show-modal">Add</button>
+  <div class="lib-control">
+    <h2>Your books</h2>
+    <button commandfor="new-dialog" command="show-modal">Add</button>
+  </div>
   <dialog closedby="any" id="new-dialog">
     <button commandfor="new-dialog" command="close">Close</button>
     <form action="#" method="dialog" class="new-form">
