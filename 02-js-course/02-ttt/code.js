@@ -27,6 +27,7 @@ const gameState = (function () {
         createPlayer("Drake", "X", false),
         createPlayer("Josh", "O", true)];
     let turn = 0;
+    let emptyTiles = board.length;
 
     const getEmptyTiles = () => board.slice(0).filter(tile => tile.content === "");
 
@@ -47,7 +48,7 @@ const gameState = (function () {
     }
 
     const shouldContinue = () => !players.some(p => p.isWinner)
-        && getEmptyTiles().length > 0;
+        && emptyTiles > 0;
 
     const play = () => {
         while (shouldContinue()) {
@@ -56,9 +57,16 @@ const gameState = (function () {
                 const turnResult = playTurn(p);
                 console.log(turnResult);
                 checkForVictory(p);
-                if (p.isWinner) break;
+                emptyTiles--;
+                if (p.isWinner || emptyTiles === 0) break;
             }
             console.log(board)
+        }
+        const winner = players.find(p => p.isWinner);
+        if (winner) {
+            console.log(`🥳🥳Congratulations ${winner.name}! You won! 🥳🥳`);
+        } else {
+            console.log(`We have a draw between ${players[0].name} and ${players[1].name}`);
         }
     }
 
