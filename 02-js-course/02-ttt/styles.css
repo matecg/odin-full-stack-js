@@ -1,0 +1,37 @@
+body {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.board {
+    display: grid;
+    grid-template: repeat(3, 75px) / repeat(3, 75px);
+}
+
+.board > button {
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #fff;
+    outline: none;
+}
+
+.board > button:hover {
+    background-color: aqua;
+}
+
+.top {
+    border-top: none;
+}
+
+.left {
+    border-left: none;
+}
+
+.right {
+    border-right: none;
+}
+
+.bottom {
+    border-bottom: none;
+}

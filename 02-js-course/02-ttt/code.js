@@ -1,11 +1,19 @@
-function createPlayer(name, mark, isComputer) {
+function createPlayer(name, mark) {
     let isWinner = false;
-    // TODO: Change as soon as we have user input
+    const chooseTile = () => {
+        // Now what...
+    }
+    return { name, mark, isWinner, chooseTile }
+}
+
+function createComputerPlayer(name, mark) {
+    let isWinner = false;
     const chooseTile = (emptyTiles) => {
         const randIdx = Math.floor(Math.random() * emptyTiles.length);
         return emptyTiles[randIdx].index;
     }
-    return { name, mark, isComputer, isWinner, chooseTile }
+
+    return {name, mark, isWinner, chooseTile}
 }
 
 function createBoard() {
@@ -24,8 +32,8 @@ const gameState = (function () {
     ]
     const board = createBoard();
     const players = [
-        createPlayer("Drake", "X", false),
-        createPlayer("Josh", "O", true)];
+        createPlayer("Drake", "X"),
+        createPlayer("Josh", "O")];
     let turn = 0;
     let emptyTiles = board.length;
 
@@ -73,4 +81,4 @@ const gameState = (function () {
     return { play };
 })();
 
-gameState.play();
+// gameState.play();
