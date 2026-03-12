@@ -1,19 +1,18 @@
 function createPlayer(name, mark) {
     let isWinner = false;
-    const chooseTile = () => {
-        // Now what...
-    }
-    return { name, mark, isWinner, chooseTile }
+
+    return { name, mark, isWinner }
 }
 
 function createComputerPlayer(name, mark) {
     let isWinner = false;
+    const isComputer = true;
     const chooseTile = (emptyTiles) => {
         const randIdx = Math.floor(Math.random() * emptyTiles.length);
         return emptyTiles[randIdx].index;
     }
 
-    return {name, mark, isWinner, chooseTile}
+    return { name, mark, isWinner, chooseTile, isComputer}
 }
 
 function createBoard() {
@@ -32,17 +31,22 @@ const gameState = (function () {
     ]
     const board = createBoard();
     const players = [
-        createPlayer("Drake", "X"),
-        createPlayer("Josh", "O")];
-    let turn = 0;
+        createPlayer("Drake", "❌"),
+        createComputerPlayer("Josh", "⭕")];
+
     let emptyTiles = board.length;
+    let nextPlayerIdx = 0;
 
     const getEmptyTiles = () => board.slice(0).filter(tile => tile.content === "");
 
-    const playTurn = (player) => {
-        const chosenTile = player.chooseTile(getEmptyTiles());
-        board.find(tile => tile.index === chosenTile).content = player.mark;
-        return `${player.name} chose tile ${chosenTile + 1}`;
+    const playTurn = (tileIdx) => {
+        let next = players[nextPlayerIdx];
+        tileIdx = tileIdx && !next.isComputer ? tileIdx : next.chooseTile(getEmptyTiles());
+        
+        board[tileIdx].content = next.mark;
+        checkForVictory(next);
+        nextPlayerIdx = (nextPlayerIdx + 1) % players.length;
+        next = players[nextPlayerIdx];
     }
 
     const checkForVictory = (player) => {
@@ -58,27 +62,36 @@ const gameState = (function () {
     const shouldContinue = () => !players.some(p => p.isWinner)
         && emptyTiles > 0;
 
-    const play = () => {
-        while (shouldContinue()) {
-            console.log(`------ TURN ${++turn} ------`);
-            for (const p of players) {
-                const turnResult = playTurn(p);
-                console.log(turnResult);
-                checkForVictory(p);
-                emptyTiles--;
-                if (p.isWinner || emptyTiles === 0) break;
-            }
-            console.log(board)
-        }
-        const winner = players.find(p => p.isWinner);
-        if (winner) {
-            console.log(`🥳🥳Congratulations ${winner.name}! You won! 🥳🥳`);
-        } else {
-            console.log(`We have a draw between ${players[0].name} and ${players[1].name}`);
-        }
-    }
-
-    return { play };
+    return {board, playTurn };
 })();
 
-// gameState.play();
+const gameInterface = (function (doc, state) {
+    const boardBtns = doc.querySelectorAll(".board>button");
+    const nextBtn = doc.querySelector(".next-btn");
+
+    boardBtns.forEach((btn, i) => {
+        btn.addEventListener('click', (e) => {
+            const { tile } = e.target.dataset;
+            state.playTurn(tile);
+            e.target.textContent = state.board[tile].content;
+            e.target.classList.remove('empty');
+            e.target.classList.add('marked');
+            e.target.disabled = true;
+        })
+    });
+
+    nextBtn.addEventListener('click', () => {
+        state.playTurn();
+        boardBtns.forEach((btn, i) => {
+            const text = state.board[i].content;
+            btn.textContent = text;
+            if (text) {
+                btn.classList.remove('empty');
+                btn.classList.add('marked');
+                btn.disabled = true;
+            }
+        });
+    })
+
+
+})(document, gameState)

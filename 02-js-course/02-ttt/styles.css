@@ -2,6 +2,7 @@ body {
     display: grid;
     justify-content: center;
     text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .board {
@@ -11,14 +12,23 @@ body {
 
 .board > button {
     font-size: 1.5rem;
-    cursor: pointer;
-    background-color: #fff;
     outline: none;
 }
 
-.board > button:hover {
+.empty {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.empty:hover {
     background-color: aqua;
 }
+
+.marked {
+    background-color: lightgray;
+    cursor: default;
+}
+
 
 .top {
     border-top: none;
@@ -34,4 +44,16 @@ body {
 
 .bottom {
     border-bottom: none;
+}
+
+.next-btn {
+    background-color: crimson;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 20px;
+    color: white;
+    letter-spacing: 0.15rem;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
 }
