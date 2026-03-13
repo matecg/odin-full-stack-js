@@ -10,7 +10,28 @@
 <body>
   <h1>Tic-Tac-Toe</h1>
   <div>
-    <button class="next-btn">Next</button>
+    <div class="game-setup">
+      <div>
+        <label for="p1">Player 1: </label>
+        <input type="text" name="p1" id="p1">
+      </div>
+      <div>
+        <label for="p2">Player 2:</label>
+        <input type="text" name="p2" id="p2">
+        <label for="is-computer">Computer?</label>
+        <input type="checkbox" name="is-computer" id="is-computer">
+      </div>
+      <button>Start</button>
+    </div>
+    <div class="game-info">
+      <div>
+        <p><span>Player 1: </span>Jordan</p>
+      </div>
+      <div>
+        <button class="next-btn">Next</button>
+        <p><span>Player 2: </span>Susy</p>
+      </div>
+    </div>
   </div>
   <div class="board">
     <button class="empty" data-tile="0"></button>

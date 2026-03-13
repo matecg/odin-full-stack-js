@@ -4,6 +4,9 @@ body {
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     row-gap: 20px;
+    letter-spacing: 0.1rem;
+    justify-items: center;
+
 }
 
 .board {
@@ -11,8 +14,8 @@ body {
     grid-template: 75px 10px 75px 10px 75px / 75px 10px 75px 10px 75px;
 }
 
-.board > button {
-    font-size: 1.5rem;
+.board>button {
+    font-size: 1.75rem;
     outline: none;
     border: none;
 }
@@ -27,8 +30,9 @@ body {
 }
 
 .marked {
-    background-color: lightgray;
+    color: white;
     cursor: default;
+    background-color: white;
 }
 
 .row {
@@ -53,4 +57,69 @@ body {
 
 .next-btn:hover {
     box-shadow: 0px 2px 5px #CCC;
+}
+
+.game-setup {
+    background-color: #EEE;
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid hotpink;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    display: none;
+}
+
+.game-setup label {
+    width: 100px;
+    display: inline-block;
+    text-align: end;
+}
+
+.game-setup input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: hotpink;
+    vertical-align: middle;
+}
+
+.game-setup button {
+    align-self: center;
+    background-color: hotpink;
+    border: none;
+    padding: 4px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.game-setup button:hover {
+    box-shadow: 0px 2px 5px #ccc;
+}
+
+.game-setup input[type="text"] {
+    border: none;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.game-setup input[type="text"]:focus {
+    outline: none;
+    border: 2px solid hotpink;
+    box-shadow: 0px 2px 5px #ccc;
+}
+
+.game-info {
+    /* display: none; */
+    border-bottom: 1px solid black;
+    width: 400px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.game-info p>span {
+    font-size: 0.8rem;
+    font-family: 'Courier New', Courier, monospace;
 }
