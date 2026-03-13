@@ -30,12 +30,14 @@ const gameState = (function () {
         [0, 4, 8], [2, 4, 6]
     ]
     const board = createBoard();
-    const players = [
-        createPlayer("Drake", "❌"),
-        createComputerPlayer("Josh", "⭕")];
-
-    let emptyTiles = board.length;
+    const players = [];
     let nextPlayerIdx = 0;
+
+    const addPlayer = ({name, isComputer}) => {
+        let newP = isComputer ? createComputerPlayer(name, "⭕") :
+            createPlayer(name, "❌");
+        players.push(newP);
+    }
 
     const getEmptyTiles = () => board.slice(0).filter(tile => tile.content === "");
 
@@ -43,6 +45,7 @@ const gameState = (function () {
         && players[nextPlayerIdx].isComputer;
 
     const playTurn = (tileIdx) => {
+        if (!shouldContinue()) return;
         let next = players[nextPlayerIdx];
         tileIdx = tileIdx && !next.isComputer ? tileIdx : next.chooseTile(getEmptyTiles());
 
@@ -62,17 +65,32 @@ const gameState = (function () {
         }
     }
 
-    const shouldContinue = () => !players.some(p => p.isWinner)
-        && emptyTiles > 0;
+    const shouldContinue = () => !players.some(p => p.isWinner);
 
-    return { board, playTurn, isNextComputer };
+    return { board, playTurn, isNextComputer, addPlayer};
 })();
 
-const gameInterface = (function (doc, state) {
+(function (doc, state) {
     const boardBtns = doc.querySelectorAll(".board>button");
     const nextBtn = doc.querySelector(".next-btn");
+    const setupForm = doc.querySelector(".game-setup");
 
-    boardBtns.forEach((btn, i) => {
+    setupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        // console.log(data.p1.length)
+        if (!data.p1.length) {
+            doc.querySelector("#p1").classList.toggle("invalid-name");
+            return;
+        }
+        state.addPlayer({name:data.p1, isComputer:false});
+        state.addPlayer({name:data.p2, isComputer: "is-computer" in data})
+        e.target.classList.add("hidden");
+        doc.querySelector(".game-info").classList.toggle("hidden");
+    })
+
+    boardBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
             if (state.isNextComputer()) return;
             const { tile } = e.target.dataset;

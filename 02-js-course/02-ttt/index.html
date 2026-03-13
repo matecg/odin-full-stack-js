@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,23 +8,24 @@
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <h1>Tic-Tac-Toe</h1>
   <div>
-    <div class="game-setup">
+    <form method="get" action="#" class="game-setup">
       <div>
-        <label for="p1">Player 1: </label>
+        <label for="p1">Player 1(*): </label>
         <input type="text" name="p1" id="p1">
       </div>
       <div>
         <label for="p2">Player 2:</label>
-        <input type="text" name="p2" id="p2">
+        <input type="text" name="p2" id="p2" value="Computer">
         <label for="is-computer">Computer?</label>
-        <input type="checkbox" name="is-computer" id="is-computer">
+        <input type="checkbox" name="is-computer" id="is-computer" checked>
       </div>
-      <button>Start</button>
-    </div>
-    <div class="game-info">
+      <button type="submit">Start</button>
+    </form>
+    <div class="game-info hidden">
       <div>
         <p><span>Player 1: </span>Jordan</p>
       </div>
@@ -54,4 +56,5 @@
   </div>
   <script src="code.js"></script>
 </body>
+
 </html>
