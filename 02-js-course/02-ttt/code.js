@@ -12,7 +12,7 @@ function createComputerPlayer(name, mark) {
         return emptyTiles[randIdx].index;
     }
 
-    return { name, mark, isWinner, chooseTile, isComputer}
+    return { name, mark, isWinner, chooseTile, isComputer }
 }
 
 function createBoard() {
@@ -39,10 +39,13 @@ const gameState = (function () {
 
     const getEmptyTiles = () => board.slice(0).filter(tile => tile.content === "");
 
+    const isNextComputer = () => "isComputer" in players[nextPlayerIdx]
+        && players[nextPlayerIdx].isComputer;
+
     const playTurn = (tileIdx) => {
         let next = players[nextPlayerIdx];
         tileIdx = tileIdx && !next.isComputer ? tileIdx : next.chooseTile(getEmptyTiles());
-        
+
         board[tileIdx].content = next.mark;
         checkForVictory(next);
         nextPlayerIdx = (nextPlayerIdx + 1) % players.length;
@@ -62,7 +65,7 @@ const gameState = (function () {
     const shouldContinue = () => !players.some(p => p.isWinner)
         && emptyTiles > 0;
 
-    return {board, playTurn };
+    return { board, playTurn, isNextComputer };
 })();
 
 const gameInterface = (function (doc, state) {
@@ -71,6 +74,7 @@ const gameInterface = (function (doc, state) {
 
     boardBtns.forEach((btn, i) => {
         btn.addEventListener('click', (e) => {
+            if (state.isNextComputer()) return;
             const { tile } = e.target.dataset;
             state.playTurn(tile);
             e.target.textContent = state.board[tile].content;
@@ -81,6 +85,7 @@ const gameInterface = (function (doc, state) {
     });
 
     nextBtn.addEventListener('click', () => {
+        if (!state.isNextComputer()) return;
         state.playTurn();
         boardBtns.forEach((btn, i) => {
             const text = state.board[i].content;

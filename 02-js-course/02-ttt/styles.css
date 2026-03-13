@@ -3,6 +3,7 @@ body {
     justify-content: center;
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    row-gap: 20px;
 }
 
 .board {
@@ -48,4 +49,8 @@ body {
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 600;
+}
+
+.next-btn:hover {
+    box-shadow: 0px 2px 5px #CCC;
 }
