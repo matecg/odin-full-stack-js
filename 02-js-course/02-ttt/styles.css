@@ -7,12 +7,13 @@ body {
 
 .board {
     display: grid;
-    grid-template: repeat(3, 75px) / repeat(3, 75px);
+    grid-template: 75px 10px 75px 10px 75px / 75px 10px 75px 10px 75px;
 }
 
 .board > button {
     font-size: 1.5rem;
     outline: none;
+    border: none;
 }
 
 .empty {
@@ -29,21 +30,12 @@ body {
     cursor: default;
 }
 
-
-.top {
-    border-top: none;
+.row {
+    grid-column: span 5;
 }
 
-.left {
-    border-left: none;
-}
-
-.right {
-    border-right: none;
-}
-
-.bottom {
-    border-bottom: none;
+.board-line {
+    background-color: hotpink;
 }
 
 .next-btn {
