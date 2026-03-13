@@ -29,11 +29,11 @@ const gameState = (function () {
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
     ]
-    const board = createBoard();
     const players = [];
     let nextPlayerIdx = 0;
+    let board = createBoard();
 
-    const addPlayer = ({name, isComputer}) => {
+    const addPlayer = ({ name, isComputer }) => {
         let newP = isComputer ? createComputerPlayer(name, "⭕") :
             createPlayer(name, "❌");
         players.push(newP);
@@ -66,16 +66,23 @@ const gameState = (function () {
         }
         return [];
     }
+    const wipe = () => {
+        board = createBoard();
+        players.forEach(p => p.isWinner = false);
+        nextPlayerIdx = 0;
+    }
 
     const shouldContinue = () => !players.some(p => p.isWinner);
+    const getBoard = () => board.slice(0);
 
-    return { board, playTurn, isNextComputer, addPlayer};
+    return { playTurn, isNextComputer, addPlayer, wipe, getBoard };
 })();
 
 (function (doc, state) {
     const boardBtns = doc.querySelectorAll(".board>button");
     const nextBtn = doc.querySelector(".next-btn");
     const setupForm = doc.querySelector(".game-setup");
+    const restartBtn = doc.querySelector('.restart-btn');
 
     setupForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -85,8 +92,8 @@ const gameState = (function () {
             doc.querySelector("#p1").classList.add("invalid-name");
             return;
         }
-        state.addPlayer({name:data.p1, isComputer:false});
-        state.addPlayer({name:data.p2, isComputer: "is-computer" in data})
+        state.addPlayer({ name: data.p1, isComputer: false });
+        state.addPlayer({ name: data.p2, isComputer: "is-computer" in data })
         e.target.classList.add("hidden");
         const gameInfo = doc.querySelector(".game-info");
         gameInfo.classList.toggle("hidden");
@@ -95,45 +102,63 @@ const gameState = (function () {
         spans[1].textContent = data.p2;
     })
 
+    const processWin = (winnerComb) => {
+        boardBtns.forEach(btn => {
+            btn.classList.remove('empty');
+            if (winnerComb.some(num => num === +btn.dataset.tile)) {
+                btn.classList.add('winner', 'marked');
+            }
+            btn.disabled = true;
+        });
+        nextBtn.disabled = true;
+        doc.querySelector(".restart").classList.remove('hidden');
+    }
+
     boardBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
             if (state.isNextComputer()) return;
+            console.log(state.getBoard());
             const { tile } = e.target.dataset;
             const winnerComb = state.playTurn(tile);
             e.target.disabled = true;
-            e.target.textContent = state.board[tile].content;
-            
+            e.target.textContent = state.getBoard()[tile].content;
+
             if (winnerComb) {
-                console.log(winnerComb);
-                
-                boardBtns.forEach(btn => {
-                    btn.classList.remove('empty');
-                    if (winnerComb.some(num => num === +btn.dataset.tile)) {
-                        btn.classList.add('winner');
-                    }
-                    btn.disabled = true;
-                });
-                nextBtn.disabled = true;
+                processWin();
+                return;
             }
 
             e.target.classList.remove('empty');
             e.target.classList.add('marked');
-            
+        });
+
+        restartBtn.addEventListener('click', () => {
+            boardBtns.forEach(btn => {
+                btn.className = "";
+                btn.classList.add("empty");
+                btn.textContent = "";
+                btn.disabled = false;
+            });
+            state.wipe();
+            nextBtn.disabled = false;
         })
     });
 
     nextBtn.addEventListener('click', () => {
         if (!state.isNextComputer()) return;
-        state.playTurn();
+        const winComb = state.playTurn();
+        const board = state.getBoard();
         boardBtns.forEach((btn, i) => {
-            const text = state.board[i].content;
-            btn.textContent = text;
-            if (text) {
+            btn.textContent = board[i].content;
+            if (board[i].content) {
                 btn.classList.remove('empty');
                 btn.classList.add('marked');
                 btn.disabled = true;
             }
         });
+        if (winComb) {
+            processWin(winComb);
+        }
     })
 
 
