@@ -50,9 +50,10 @@ const gameState = (function () {
         tileIdx = tileIdx && !next.isComputer ? tileIdx : next.chooseTile(getEmptyTiles());
 
         board[tileIdx].content = next.mark;
-        checkForVictory(next);
+        const winnerComb = checkForVictory(next);
         nextPlayerIdx = (nextPlayerIdx + 1) % players.length;
         next = players[nextPlayerIdx];
+        if (winnerComb.length > 0) return winnerComb;
     }
 
     const checkForVictory = (player) => {
@@ -60,9 +61,10 @@ const gameState = (function () {
             const marks = comb.map(idx => board[idx].content);
             if (marks.every(tileMark => tileMark === player.mark)) {
                 player.isWinner = true;
-                return;
+                return comb;
             }
         }
+        return [];
     }
 
     const shouldContinue = () => !players.some(p => p.isWinner);
@@ -79,26 +81,44 @@ const gameState = (function () {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
-        // console.log(data.p1.length)
         if (!data.p1.length) {
-            doc.querySelector("#p1").classList.toggle("invalid-name");
+            doc.querySelector("#p1").classList.add("invalid-name");
             return;
         }
         state.addPlayer({name:data.p1, isComputer:false});
         state.addPlayer({name:data.p2, isComputer: "is-computer" in data})
         e.target.classList.add("hidden");
-        doc.querySelector(".game-info").classList.toggle("hidden");
+        const gameInfo = doc.querySelector(".game-info");
+        gameInfo.classList.toggle("hidden");
+        const spans = gameInfo.querySelectorAll("p>span");
+        spans[0].textContent = data.p1;
+        spans[1].textContent = data.p2;
     })
 
     boardBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
             if (state.isNextComputer()) return;
             const { tile } = e.target.dataset;
-            state.playTurn(tile);
+            const winnerComb = state.playTurn(tile);
+            e.target.disabled = true;
             e.target.textContent = state.board[tile].content;
+            
+            if (winnerComb) {
+                console.log(winnerComb);
+                
+                boardBtns.forEach(btn => {
+                    btn.classList.remove('empty');
+                    if (winnerComb.some(num => num === +btn.dataset.tile)) {
+                        btn.classList.add('winner');
+                    }
+                    btn.disabled = true;
+                });
+                nextBtn.disabled = true;
+            }
+
             e.target.classList.remove('empty');
             e.target.classList.add('marked');
-            e.target.disabled = true;
+            
         })
     });
 

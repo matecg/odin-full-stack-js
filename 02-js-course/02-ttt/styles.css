@@ -59,6 +59,12 @@ body {
     box-shadow: 0px 2px 5px #CCC;
 }
 
+.next-btn:disabled {
+    background-color: gray;
+    opacity: 0.75;
+    cursor: default;
+}
+
 .game-setup {
     background-color: #EEE;
     padding: 20px;
@@ -128,7 +134,16 @@ body {
     justify-content: space-between;
 }
 
-.game-info p>span {
+.game-info p {
     font-size: 0.8rem;
     font-family: 'Courier New', Courier, monospace;
+}
+
+.game-info p>span {
+    font-size: 1rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.winner {
+    background-color: gold;
 }
