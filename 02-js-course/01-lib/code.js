@@ -2,19 +2,18 @@ const myLibrary = [];
 document.querySelector(".new-form")
     .addEventListener("submit", onSubmitNewBook);
 
-function Book(title, author, numOfPages, read) {
-    if (!new.target) {
-        throw Error("Books must be created using the 'new' keyword.");
+class Book {
+    constructor(title, author, numOfPages, read) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.numOfPages = numOfPages;
+        this.read = read;
     }
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.numOfPages = numOfPages;
-    this.read = read;
-}
 
-Book.prototype.toggleRead = function() {
-    this.read = !this.read;
+    toggleRead() {
+        this.read = !this.read;
+    }
 }
 
 function addBookToLibrary(title, author, numOfPages, read = false) {
@@ -36,7 +35,7 @@ function toggleBookReadStatus(id) {
 
 function displayBooks() {
     const container = document.querySelector(".books-container");
-    // Wipe all children is sub-optimal, better would be a selective display
+    // Wipe all children is sub-optimal, it would be better to select among children
     container.innerHTML = "";
     for (let i = 0; i < myLibrary.length; i++) {
         const bookCard = createBookCard(myLibrary[i]);
@@ -45,7 +44,7 @@ function displayBooks() {
 }
 
 function createBookCard(data) {
-    const {id, title, author, numOfPages, read} = data;
+    const { id, title, author, numOfPages, read } = data;
     const bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
     const titlePara = document.createElement("p");
@@ -96,7 +95,7 @@ function onRemoveBook(e) {
 }
 
 function onReadBook(e) {
-    const {bookId} = e.target.dataset;
+    const { bookId } = e.target.dataset;
     toggleBookReadStatus(bookId);
     displayBooks();
 }
