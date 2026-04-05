@@ -1,6 +1,9 @@
 const myLibrary = [];
 document.querySelector(".new-form")
     .addEventListener("submit", onSubmitNewBook);
+const bookTitle = document.querySelector("#title");
+const bookAuthor = document.querySelector("#author");
+const numOfPages = document.querySelector("#pages");
 
 class Book {
     constructor(title, author, numOfPages, read) {
@@ -21,7 +24,6 @@ function addBookToLibrary(title, author, numOfPages, read = false) {
     myLibrary.push(newBook);
 }
 
-/* Removes a book based on its id and returns the removed item */
 function removeBookFromLibrary(id) {
     const idx = myLibrary.findIndex((book) => book.id === id);
     if (idx === -1) return;
@@ -99,6 +101,28 @@ function onReadBook(e) {
     toggleBookReadStatus(bookId);
     displayBooks();
 }
+
+bookTitle.addEventListener('input', () => {
+    bookTitle.setCustomValidity("");
+    if (bookTitle.validity.valueMissing) {
+        bookTitle.setCustomValidity("The books title must be provided.");
+    }
+});
+
+numOfPages.addEventListener('input', () => {
+    if (numOfPages.validity.rangeUnderflow) {
+        numOfPages.setCustomValidity("The number of pages must not be negative.");
+    } else {
+        numOfPages.setCustomValidity("");
+    }
+});
+
+bookAuthor.addEventListener('input', () => {
+    bookAuthor.setCustomValidity("");
+    if (bookAuthor.validity.valueMissing) {
+        bookAuthor.setCustomValidity("A books author must be provided.");
+    }
+})
 
 addBookToLibrary("The Hobbit", "J. R. R. Tolkien", 293, true);
 addBookToLibrary("Thinking, fast and slow", "Daniel Kahneman", 497, false);
