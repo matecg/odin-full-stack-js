@@ -4,7 +4,7 @@
     const country = document.querySelector("#country");
     const postal = document.querySelector("#postal");
     const pass = document.querySelector("#password");
-    const confPass = document.querySelector("pass-confirm");
+    const confPass = document.querySelector("#pass-confirm");
     const emailValidations = [
         {
             name: "typeMismatch",
@@ -19,20 +19,29 @@
             msg: "The email provided is too short."
         }];
 
-    email.addEventListener('input', () => {
+    function validateEmail() {
         const source = "email";
         emailValidations.forEach((validation) => {
             const { name, msg } = validation;
+
             if (email.validity[name]) {
                 if (getErrorMessage(source, name) !== null) return;
-                const errMsg = new ErrorMessage(msg,
-                    source, name
-                );
+                const errMsg = new ErrorMessage(msg, source, name);
                 addErrorMessage(errMsg);
             } else {
                 removeErrorMessage(source, name);
             }
-        })
+        });
+    }
+
+    email.addEventListener('input', validateEmail);
+    email.addEventListener('blur', validateEmail);
+
+    form.addEventListener('submit', (e) => {
+        validateEmail();
+        if (!email.validity.valid) {
+            e.preventDefault();
+        }
     })
 })()
 
